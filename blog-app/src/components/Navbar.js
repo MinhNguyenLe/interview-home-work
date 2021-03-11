@@ -20,7 +20,7 @@ const NavbarBlog =({dataUser})=>{
     <Container className="position-relative">
       <Row>
         <Form inline>
-          <FormControl  onInput={(e)=>console.log(e.target.value)} type="text" placeholder="Search Blog" className="mr-sm-2" />
+            <FormControl onInput={(e)=>console.log(e.target.value)} type="text" placeholder="Search Blog" className="mr-sm-2" />
           <Button onClick={()=>{
             console.log(dataUser)
           }} style={{ color : 'white'}} variant="outline-info">Search</Button>
@@ -29,10 +29,10 @@ const NavbarBlog =({dataUser})=>{
       <Row>
         <Navbar.Brand href="/" style={{fontSize : '22px', fontWeight : 'bold'}}><i style={{marginRight :'6px'}} className="fas fa-blog"></i>Blog</Navbar.Brand>
       </Row>
-      <Row>
+      <Row >
         <Nav className="mr-auto">
           {successLogin === true ? (
-            <span  style={{color : 'white'}}><i class="fas fa-user" style ={{marginRight :'6px'}}></i>{account.name}</span>
+            <span  style={{color : 'white', fontSize : '18px'}}><i class="fas fa-user" style ={{marginRight :'6px'}}></i>{account.name}</span>
           ) : (
             <Button onClick={()=> {
               if(clickToLogin === false) setClickToLogin(true)

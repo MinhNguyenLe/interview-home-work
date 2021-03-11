@@ -6,7 +6,7 @@ import dataPost from '../../data/posts.json';
 const INITIAL_STATE={
   dataUser : dataUser,
   dataComment : dataComment,
-  dataPost : dataPost
+  dataPost : dataPost,
 };
 
 const bloggerReducer =(state = INITIAL_STATE, action)=>{
