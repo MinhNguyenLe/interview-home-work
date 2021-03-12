@@ -1,11 +1,11 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {connect} from 'react-redux'
 import {searchBlog } from '../redux/blogger/blogger-action';
 
-import {Row, Col, Container, Nav, Form, FormControl,Navbar, Button, Alert } from 'react-bootstrap';
+import {Row, Col, Container, Nav, Form, FormControl,Navbar, Button } from 'react-bootstrap';
 
-const NavbarBlog =({dataUser,search})=>{
+const NavbarBlog =({dataUser,search, dataPost})=>{
   const [clickToLogin, setClickToLogin] = useState(false);
   const [successLogin, setSuccessLogin] = useState(false);
 
@@ -24,8 +24,9 @@ const NavbarBlog =({dataUser,search})=>{
         <Form inline>
             <FormControl onInput={(e)=>setSearchInput(e.target.value)} type="text" placeholder="Search Blog" className="mr-sm-2" />
             <Button onClick={(e)=>{
-              search(searchInput)
-              console.log(search(searchInput))
+              if(dataPost.map(data => data.title.toLowerCase() === searchInput.trim().toLowerCase())){
+                search(searchInput)
+              }
           }} style={{ color : 'white'}} variant="outline-info">Search</Button>
         </Form>
       </Row>
@@ -78,6 +79,7 @@ const NavbarBlog =({dataUser,search})=>{
 const mapStateToProps =(state)=>{
   return {
     dataUser : state.dataBlog.dataUser ,
+    dataPost : state.dataBlog.dataPost ,
   };
 };
 

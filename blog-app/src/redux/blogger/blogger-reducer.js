@@ -13,9 +13,17 @@ const INITIAL_STATE={
 const bloggerReducer =(state = INITIAL_STATE, action)=>{
   switch(action.type){
     case actionTypes.SEARCH_BLOG :
+      const item = INITIAL_STATE.dataPost.find(post => post.title.toLowerCase() === action.payload.name.trim().toLowerCase() ? true : false);
       return {
         ...state,
-        detail : INITIAL_STATE.dataPost.find(post => post.title.toLowerCase() === action.payload.name.trim().toLowerCase()),
+        detail : item ? INITIAL_STATE.dataPost.find(post => post.title.toLowerCase() === action.payload.name.trim().toLowerCase()) : {
+          "id": 1,
+          "owner": 1,
+          "title": "error",
+          "content": "error",
+          "created_at": "error",
+          "tags": ["", "", ""]
+        },
         dataPost : INITIAL_STATE.dataPost.filter(post => post.title.toLowerCase() === action.payload.name.trim().toLowerCase()),
       };
     case actionTypes.DETAIL_BLOG :

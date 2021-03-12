@@ -25,8 +25,6 @@ const BlogContent =({detail,dataComment})=>{
       default : break;
     }
   }
-
-  const arrayCmt = dataComment.filter(data => data.post === detail.id)
   
   return(
     <div>
@@ -38,13 +36,12 @@ const BlogContent =({detail,dataComment})=>{
           <Card.Subtitle style={{marginTop : '0px'}}>Created at : {nameMonth()} {thisDate.getDate()}, {thisDate.getFullYear()}</Card.Subtitle>
           <Card.Text style={{marginTop : '20px'}}>{detail.content}</Card.Text>
           <Button onClick={()=>{
-            console.log(arrayCmt)
             if(showCmt === false) setShowCmt(true);
             else setShowCmt(false);
-          }} style={{width : '100px'}}>{arrayCmt.length} {arrayCmt.length > 1 ? 'replies' : 'reply'}</Button>
+          }} style={{width : '100px'}}>{ dataComment.filter(data => data.post === detail.id).length} { dataComment.filter(data => data.post === detail.id).length > 1 ? 'replies' : 'reply'}</Button>
           {showCmt === true ? (
             <div>
-            {arrayCmt.map(cmt => (
+            {dataComment.filter(data => data.post === detail.id).map(cmt => (
               <Row key={cmt.id} style={{marginLeft : '0px'}}>
                 <Comment dateCmt={cmt.created_at} contentCmt={cmt.content} ownerCmt={cmt.owner}></Comment>
               </Row>
