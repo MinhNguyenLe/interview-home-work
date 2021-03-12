@@ -29,14 +29,17 @@ const Blog =({title, content, date, owner, dataComment, id, detail})=>{
 
   const arrayCmt = dataComment.filter(data => data.post === id)
   return(
-    <Link to='/blog/content' style={{color: 'black', outline : 'none'}}>
+    <div>
+    <Link to='/blog/content' style={{color: 'black', textDecoration : 'none'}} onClick={()=>{
+      detail(id)
+    }}>
       <Card style={{marginTop : '60px', cursor : 'pointer'}}>
-        <Card  style={{fontSize : '40px'}} className='text-center' onClick={()=>{
-          detail(id)
-        }}>{title}</Card>
+        <Card  style={{fontSize : '40px'}} className='text-center'>{title}</Card>
         <Card.Subtitle style={{marginTop : '8px'}}>Author : {owner}</Card.Subtitle>
         <Card.Subtitle style={{marginTop : '0px'}}>Created at : {nameMonth()} {thisDate.getDate()}, {thisDate.getFullYear()}</Card.Subtitle>
         <Card.Text style={{marginTop : '20px'}}>{content.slice(0,99)}...</Card.Text>
+        </Card>
+      </Link>
         <Button onClick={()=>{
           console.log(arrayCmt)
           if(showCmt === false) setShowCmt(true);
@@ -53,8 +56,7 @@ const Blog =({title, content, date, owner, dataComment, id, detail})=>{
         ) : (
           <div></div>
         )}
-      </Card>
-    </Link>
+    </div>
   )
 }
 

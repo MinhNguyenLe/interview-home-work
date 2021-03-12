@@ -22,7 +22,7 @@ const Comment =({contentCmt, ownerCmt, dateCmt})=>{
   }
   return(
     <div>
-      <Card.Subtitle><i style={{marginRight:'6px'}} className="fas fa-user-edit"></i>{ownerCmt}</Card.Subtitle>
+      <Card.Subtitle><i style={{margin:'10px 6px 10px 4px'}} className="fas fa-user-edit"></i>: {ownerCmt}</Card.Subtitle>
       <Card.Subtitle></Card.Subtitle>
       <Card.Text>{contentCmt}</Card.Text>
     </div>
