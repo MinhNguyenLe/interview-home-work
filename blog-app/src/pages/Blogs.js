@@ -1,11 +1,10 @@
 import React,{useState, useEffect} from 'react';
 import NavbarBlog from '../components/Navbar';
 import Blog from '../components/Blog';
-import {Row, Col, Container, Nav, Form, FormControl,Navbar, Button, Alert } from 'react-bootstrap';
+import {Row, Col, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 const Blogs =({dataPost})=>{
-
   return(
     <div>
       <NavbarBlog></NavbarBlog>
@@ -25,5 +24,6 @@ const mapStateToProps =(state)=>{
     dataPost : state.dataBlog.dataPost ,
   };
 };
+
 
 export default connect(mapStateToProps)(Blogs);

@@ -2,8 +2,10 @@ import React,{useState} from 'react';
 import {Card, Row , Button } from 'react-bootstrap';
 import {connect} from 'react-redux'
 import Comment from '../components/Comment'
+import {detailBlog } from '../redux/blogger/blogger-action';
+import {Link} from 'react-router-dom'
 
-const Blog =({title, content, date, owner, dataComment, id})=>{
+const Blog =({title, content, date, owner, dataComment, id, detail})=>{
   const [showCmt, setShowCmt] = useState(false)
 
   const thisDate = new Date(date)
@@ -27,28 +29,32 @@ const Blog =({title, content, date, owner, dataComment, id})=>{
 
   const arrayCmt = dataComment.filter(data => data.post === id)
   return(
-    <Card style={{marginTop : '40px'}}>
-      <Card.Title style={{fontSize : '40px'}} className='text-center'>{title}</Card.Title>
-      <Card.Subtitle style={{marginTop : '8px'}}>Author : {owner}</Card.Subtitle>
-      <Card.Subtitle style={{marginTop : '0px'}}>Created at : {nameMonth()} {thisDate.getDate()}, {thisDate.getFullYear()}</Card.Subtitle>
-      <Card.Text style={{marginTop : '20px'}}>{content}</Card.Text>
-      <Button onClick={()=>{
-        console.log(arrayCmt)
-        if(showCmt === false) setShowCmt(true);
-        else setShowCmt(false);
-      }} style={{width : '100px'}}>{arrayCmt.length} replies</Button>
-      {showCmt === true ? (
-        <div>
-        {arrayCmt.map(cmt => (
-          <Row key={cmt.id} style={{marginLeft : '0px'}}>
-            <Comment dateCmt={cmt.created_at} contentCmt={cmt.content} ownerCmt={cmt.owner}></Comment>
-          </Row>
-        ))}
-        </div>
-      ) : (
-        <div></div>
-      )}
-    </Card>
+    <Link to='/blog/content' style={{color: 'black', outline : 'none'}}>
+      <Card style={{marginTop : '60px', cursor : 'pointer'}}>
+        <Card  style={{fontSize : '40px'}} className='text-center' onClick={()=>{
+          detail(id)
+        }}>{title}</Card>
+        <Card.Subtitle style={{marginTop : '8px'}}>Author : {owner}</Card.Subtitle>
+        <Card.Subtitle style={{marginTop : '0px'}}>Created at : {nameMonth()} {thisDate.getDate()}, {thisDate.getFullYear()}</Card.Subtitle>
+        <Card.Text style={{marginTop : '20px'}}>{content.slice(0,99)}...</Card.Text>
+        <Button onClick={()=>{
+          console.log(arrayCmt)
+          if(showCmt === false) setShowCmt(true);
+          else setShowCmt(false);
+        }} style={{width : '100px'}}>{arrayCmt.length} {arrayCmt.length > 1 ? 'replies' : 'reply'}</Button>
+        {showCmt === true ? (
+          <div>
+          {arrayCmt.map(cmt => (
+            <Row key={cmt.id} style={{marginLeft : '0px'}}>
+              <Comment dateCmt={cmt.created_at} contentCmt={cmt.content} ownerCmt={cmt.owner}></Comment>
+            </Row>
+          ))}
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </Card>
+    </Link>
   )
 }
 
@@ -58,4 +64,10 @@ const mapStateToProps =(state)=>{
   };
 };
 
-export default connect(mapStateToProps)(Blog);
+const mapDispatchToProps =(dispatch)=>{
+  return {
+    detail :  (id) =>dispatch(detailBlog(id)),
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Blog);

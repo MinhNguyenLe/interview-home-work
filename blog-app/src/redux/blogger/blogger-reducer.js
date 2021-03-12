@@ -7,12 +7,21 @@ const INITIAL_STATE={
   dataUser : dataUser,
   dataComment : dataComment,
   dataPost : dataPost,
+  detail : {},
 };
 
 const bloggerReducer =(state = INITIAL_STATE, action)=>{
   switch(action.type){
-    case actionTypes.LOGIN :
-      return {};
+    case actionTypes.SEARCH_BLOG :
+      return {
+        ...state,
+        dataPost : INITIAL_STATE.dataPost.filter(post => post.title.toLowerCase() === action.payload.name.trim().toLowerCase()),
+      };
+    case actionTypes.DETAIL_BLOG :
+      return {
+        ...state,
+        detail : INITIAL_STATE.dataPost.find(post => post.id === action.payload.id),
+      };
     default :
       return state;
   }

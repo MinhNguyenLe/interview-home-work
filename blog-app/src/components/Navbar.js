@@ -1,11 +1,11 @@
 import React,{useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Navbar.css' 
 import {connect} from 'react-redux'
+import {searchBlog } from '../redux/blogger/blogger-action';
 
 import {Row, Col, Container, Nav, Form, FormControl,Navbar, Button, Alert } from 'react-bootstrap';
 
-const NavbarBlog =({dataUser})=>{
+const NavbarBlog =({dataUser,search})=>{
   const [clickToLogin, setClickToLogin] = useState(false);
   const [successLogin, setSuccessLogin] = useState(false);
 
@@ -14,15 +14,18 @@ const NavbarBlog =({dataUser})=>{
   const [pass, setPass] = useState('')
   const [user, setUser] = useState('')
 
+  const [searchInput, setSearchInput] = useState('');
+
   return(
     <div>
   <Navbar bg="dark" variant="dark">
     <Container className="position-relative">
       <Row>
         <Form inline>
-            <FormControl onInput={(e)=>console.log(e.target.value)} type="text" placeholder="Search Blog" className="mr-sm-2" />
-          <Button onClick={()=>{
-            console.log(dataUser)
+            <FormControl onInput={(e)=>setSearchInput(e.target.value)} type="text" placeholder="Search Blog" className="mr-sm-2" />
+            <Button onClick={(e)=>{
+              search(searchInput)
+              console.log(search(searchInput))
           }} style={{ color : 'white'}} variant="outline-info">Search</Button>
         </Form>
       </Row>
@@ -40,7 +43,7 @@ const NavbarBlog =({dataUser})=>{
             }} style ={{fontSize : '20px', fontWeight : '700'}}>Login</Button>
           )}
           {clickToLogin === true ? (
-            <Container className="position-absolute" style ={{width : '50%', top : '128%', left : '64%'}}>
+            <Container className="position-absolute" style ={{width : '50%', top : '140%', left : '53%'}}>
               <Col>
                 <FormControl placeholder="Username" onInput ={(e)=>{
                   setUser(e.target.value)
@@ -78,4 +81,10 @@ const mapStateToProps =(state)=>{
   };
 };
 
-export default connect(mapStateToProps)(NavbarBlog);
+const mapDispatchToProps =(dispatch)=>{
+  return {
+    search :  (value) =>dispatch(searchBlog(value)),
+  };
+};
+
+export default connect(mapStateToProps , mapDispatchToProps)(NavbarBlog);

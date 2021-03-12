@@ -1,10 +1,19 @@
 import * as actionTypes from './blogger-type';
 
-export const login =(itemID)=>{
+export const searchBlog =(value)=>{
   return {
-    type : actionTypes.LOGIN,
+    type : actionTypes.SEARCH_BLOG,
     payload :{
-      id : itemID
+      name : value
+    }
+  }
+}
+
+export const detailBlog =(id)=>{
+  return {
+    type : actionTypes.DETAIL_BLOG,
+    payload :{
+      id : id
     }
   }
 }
